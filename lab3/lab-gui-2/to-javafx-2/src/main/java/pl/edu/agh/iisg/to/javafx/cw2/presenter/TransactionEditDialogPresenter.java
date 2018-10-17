@@ -48,8 +48,9 @@ public class TransactionEditDialogPresenter {
 
 	@FXML
 	private void handleOkAction(ActionEvent event) {
-		if (isInputValid())
+		if (isInputValid()) {
 			updateModel();
+		}
 	}
 
 	@FXML
@@ -77,7 +78,8 @@ public class TransactionEditDialogPresenter {
 			e.printStackTrace();
 		}
 		transaction.setPayee(payeeTextField.getText());
-		transaction.setCategory(new Category(categoryTextField.toString()));
+		transaction.setCategory(new Category(categoryTextField.getText()));
+
 	}
 
 	private void updateControls() {

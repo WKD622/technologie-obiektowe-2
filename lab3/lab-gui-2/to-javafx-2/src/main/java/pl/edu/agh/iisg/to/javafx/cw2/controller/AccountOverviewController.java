@@ -42,6 +42,9 @@ public class AccountOverviewController {
 	private Button editButton;
 
 	@FXML
+	private Button addButton;
+
+	@FXML
 	private void initialize() {
 		transactionsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -51,8 +54,11 @@ public class AccountOverviewController {
 		inflowColumn.setCellValueFactory(dataValue -> dataValue.getValue().getInflowProperty());
 
 		deleteButton.disableProperty().bind(Bindings.isEmpty(transactionsTable.getSelectionModel().getSelectedItems()));
-		editButton.disableProperty()
-				.bind(Bindings.size(transactionsTable.getSelectionModel().getSelectedIndices()).isNotEqualTo(1));
+//		editButton.disableProperty()
+//				.bind(Bindings.size(transactionsTable.getSelectionModel().getSelectedIndices()).isNotEqualTo(1));
+		editButton.disableProperty().bind(Bindings.createBooleanBinding(() -> {
+			return (transactionsTable.getSelectionModel().getSelectedItems().size() != 1);
+		}, transactionsTable.getSelectionModel().getSelectedItems()));
 	}
 
 	@FXML
@@ -63,10 +69,17 @@ public class AccountOverviewController {
 	@FXML
 	private void handleEditAction(ActionEvent event) {
 		Transaction transaction = transactionsTable.getSelectionModel().getSelectedItem();
-		
+
 		if (transaction != null) {
 			appController.showTransactionEditDialog(transaction);
 		}
+	}
+
+	@FXML
+	private void handleAddAction(ActionEvent event) {
+		Transaction transaction = Transaction.newTransaction();
+		appController.showTransactionEditDialog(transaction);
+		data.addTransaction(transaction);
 	}
 
 	public void setData(Account acccount) {
