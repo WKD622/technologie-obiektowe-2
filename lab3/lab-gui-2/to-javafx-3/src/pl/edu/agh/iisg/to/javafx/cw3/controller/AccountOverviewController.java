@@ -12,8 +12,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import pl.edu.agh.iisg.to.javafx.cw3.command.AddTransactionCommand;
 import pl.edu.agh.iisg.to.javafx.cw3.command.Command;
 import pl.edu.agh.iisg.to.javafx.cw3.command.CommandRegistry;
+import pl.edu.agh.iisg.to.javafx.cw3.command.RemoveTransactionCommand;
 import pl.edu.agh.iisg.to.javafx.cw3.model.Account;
 import pl.edu.agh.iisg.to.javafx.cw3.model.Category;
 import pl.edu.agh.iisg.to.javafx.cw3.model.Transaction;
@@ -70,40 +72,29 @@ public class AccountOverviewController {
 
 	@FXML
 	private void initialize() {
-		transactionsTable.getSelectionModel().setSelectionMode(
-				SelectionMode.MULTIPLE);
+		transactionsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-		dateColumn.setCellValueFactory(dataValue -> dataValue.getValue()
-				.getDateProperty());
-		payeeColumn.setCellValueFactory(dataValue -> dataValue.getValue()
-				.getPayeeProperty());
-		categoryColumn.setCellValueFactory(dataValue -> dataValue.getValue()
-				.getCategoryProperty());
-		inflowColumn.setCellValueFactory(dataValue -> dataValue.getValue()
-				.getInflowProperty());
-		deleteButton.disableProperty().bind(
-				Bindings.isEmpty(transactionsTable.getSelectionModel()
-						.getSelectedItems()));
+		dateColumn.setCellValueFactory(dataValue -> dataValue.getValue().getDateProperty());
+		payeeColumn.setCellValueFactory(dataValue -> dataValue.getValue().getPayeeProperty());
+		categoryColumn.setCellValueFactory(dataValue -> dataValue.getValue().getCategoryProperty());
+		inflowColumn.setCellValueFactory(dataValue -> dataValue.getValue().getInflowProperty());
+		deleteButton.disableProperty().bind(Bindings.isEmpty(transactionsTable.getSelectionModel().getSelectedItems()));
 
-		editButton.disableProperty().bind(
-				Bindings.size(
-						transactionsTable.getSelectionModel()
-								.getSelectedItems()).isNotEqualTo(1));
+		editButton.disableProperty()
+				.bind(Bindings.size(transactionsTable.getSelectionModel().getSelectedItems()).isNotEqualTo(1));
 	}
 
 	@FXML
 	private void handleDeleteAction(ActionEvent event) {
-		for (Transaction transaction : transactionsTable.getSelectionModel()
-				.getSelectedItems()) {
-			data.removeTransaction(transaction);
+		for (Transaction transaction : transactionsTable.getSelectionModel().getSelectedItems()) {
+			RemoveTransactionCommand removeTransactionCommand = new RemoveTransactionCommand(transaction, data);
+			commandRegistry.executeCommand(removeTransactionCommand);
 		}
 	}
 
-
 	@FXML
 	private void handleEditAction(ActionEvent event) {
-		Transaction transaction = transactionsTable.getSelectionModel()
-				.getSelectedItem();
+		Transaction transaction = transactionsTable.getSelectionModel().getSelectedItem();
 		if (transaction != null) {
 			appController.showTransactionEditDialog(transaction);
 		}
@@ -114,7 +105,8 @@ public class AccountOverviewController {
 		Transaction transaction = Transaction.newTransaction();
 
 		if (appController.showTransactionEditDialog(transaction)) {
-			data.addTransaction(transaction);
+			AddTransactionCommand addTransactionCommand = new AddTransactionCommand(transaction, data);
+			commandRegistry.executeCommand(addTransactionCommand);
 		}
 	}
 

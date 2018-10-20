@@ -3,25 +3,26 @@ package pl.edu.agh.iisg.to.javafx.cw3.command;
 import pl.edu.agh.iisg.to.javafx.cw3.model.Account;
 import pl.edu.agh.iisg.to.javafx.cw3.model.Transaction;
 
-public class AddTransactionCommand implements Command {
+public class RemoveTransactionCommand implements Command {
 
-	private Transaction transactionToAdd;
+	private Transaction transactionToRemove;
 	private Account account;
 
-	public AddTransactionCommand(Transaction transactionToAdd, Account account) {
-		this.transactionToAdd = transactionToAdd;
+	public RemoveTransactionCommand(Transaction transactionToRemove, Account account) {
+		this.transactionToRemove = transactionToRemove;
 		this.account = account;
 	}
 
 	@Override
 	public void execute() {
-		account.addTransaction(transactionToAdd);
+		account.removeTransaction(transactionToRemove);
 
 	}
 
 	@Override
 	public void undo() {
-		
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -32,7 +33,6 @@ public class AddTransactionCommand implements Command {
 
 	@Override
 	public String getName() {
-		return "New transaction: " + transactionToAdd.toString();
+		return "New transaction: " + transactionToRemove.toString();
 	}
-
 }
