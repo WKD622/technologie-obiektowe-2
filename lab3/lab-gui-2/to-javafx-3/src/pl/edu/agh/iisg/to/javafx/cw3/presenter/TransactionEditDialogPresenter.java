@@ -30,7 +30,7 @@ public class TransactionEditDialogPresenter {
 	private TextField inflowTextField;
 
 	private Stage dialogStage;
-	
+
 	private boolean approved;
 
 	private LocalDateStringConverter converter;
@@ -55,7 +55,7 @@ public class TransactionEditDialogPresenter {
 	public boolean isApproved() {
 		return approved;
 	}
-	
+
 	@FXML
 	private void handleOkAction(ActionEvent event) {
 		if (isInputValid()) {

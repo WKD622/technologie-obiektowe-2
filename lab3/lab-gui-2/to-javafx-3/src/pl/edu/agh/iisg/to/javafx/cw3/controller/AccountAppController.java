@@ -29,8 +29,7 @@ public class AccountAppController {
 
 			// load layout from FXML file
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class
-					.getResource("view/AccountOverviewPane.fxml"));
+			loader.setLocation(Main.class.getResource("view/AccountOverviewPane.fxml"));
 			BorderPane rootLayout = (BorderPane) loader.load();
 
 			// set initial data into controller
@@ -55,8 +54,7 @@ public class AccountAppController {
 		try {
 			// Load the fxml file and create a new stage for the dialog
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(Main.class
-					.getResource("view/TransactionEditDialog.fxml"));
+			loader.setLocation(Main.class.getResource("view/TransactionEditDialog.fxml"));
 			BorderPane page = (BorderPane) loader.load();
 
 			// Create the dialog Stage.

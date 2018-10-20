@@ -5,12 +5,10 @@ import javafx.collections.ObservableList;
 
 public class CommandRegistry {
 
-	private ObservableList<Command> commandStack = FXCollections
-			.observableArrayList();
+	private ObservableList<Command> commandStack = FXCollections.observableArrayList();
 
-	private ObservableList<Command> undoCommandStack = FXCollections
-			.observableArrayList();
-	
+	private ObservableList<Command> undoCommandStack = FXCollections.observableArrayList();
+
 	public void executeCommand(Command command) {
 		command.execute();
 		commandStack.add(command);
@@ -19,7 +17,7 @@ public class CommandRegistry {
 
 	public void redo() {
 		if (!undoCommandStack.isEmpty()) {
-			Command command = undoCommandStack.get(undoCommandStack.size()-1);
+			Command command = undoCommandStack.get(undoCommandStack.size() - 1);
 			command.redo();
 			commandStack.add(command);
 		}
@@ -27,7 +25,7 @@ public class CommandRegistry {
 
 	public void undo() {
 		if (!commandStack.isEmpty()) {
-			Command command = commandStack.get(commandStack.size()-1);
+			Command command = commandStack.get(commandStack.size() - 1);
 			command.undo();
 			undoCommandStack.add(command);
 		}

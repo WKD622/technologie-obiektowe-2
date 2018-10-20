@@ -7,7 +7,7 @@ import pl.edu.agh.iisg.to.javafx.cw3.controller.AccountAppController;
 public class Main extends Application {
 
 	private Stage primaryStage;
-	
+
 	private AccountAppController appController;
 
 	@Override
@@ -24,6 +24,5 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 
 }

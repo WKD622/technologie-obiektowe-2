@@ -14,11 +14,14 @@ public class DataGenerator {
 		Category income = new Category("Income");
 		Category groceries = new Category("Groceries");
 		Category fuel = new Category("Fuel");
-		
-		account.addTransaction(new Transaction(LocalDate.of(2015, 8, 24), "My company", income, BigDecimal.valueOf(1000L)));
-		account.addTransaction(new Transaction(LocalDate.of(2015, 8, 25), "Greenrocesr's", groceries, BigDecimal.valueOf(973L)));
-		account.addTransaction(new Transaction(LocalDate.of(2015, 8, 26), "Petrol station", fuel,BigDecimal.valueOf(727L)));
-		
+
+		account.addTransaction(
+				new Transaction(LocalDate.of(2015, 8, 24), "My company", income, BigDecimal.valueOf(1000L)));
+		account.addTransaction(
+				new Transaction(LocalDate.of(2015, 8, 25), "Greenrocesr's", groceries, BigDecimal.valueOf(973L)));
+		account.addTransaction(
+				new Transaction(LocalDate.of(2015, 8, 26), "Petrol station", fuel, BigDecimal.valueOf(727L)));
+
 		return account;
 	}
 }

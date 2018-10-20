@@ -3,13 +3,12 @@ package pl.edu.agh.iisg.to.javafx.cw3.model;
 public class Category {
 	private String name;
 	private Category parent;
-	
-	
+
 	public Category(String name, Category parent) {
 		this.name = name;
 		this.parent = parent;
 	}
-	
+
 	public Category(String name) {
 		this(name, null);
 	}
@@ -26,9 +25,5 @@ public class Category {
 	public String toString() {
 		return name;
 	}
-	
-	
-	
-	
-	
+
 }

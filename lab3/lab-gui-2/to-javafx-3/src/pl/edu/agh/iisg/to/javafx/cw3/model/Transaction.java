@@ -64,7 +64,6 @@ public class Transaction {
 		return category;
 	}
 
-	
 	public final BigDecimal getInflow() {
 		return inflow.get();
 	}

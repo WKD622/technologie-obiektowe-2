@@ -21,14 +21,13 @@ public class RemoveTransactionCommand implements Command {
 
 	@Override
 	public void undo() {
-		// TODO Auto-generated method stub
+		account.addTransaction(transactionToRemove);
 
 	}
 
 	@Override
 	public void redo() {
-		// TODO Auto-generated method stub
-
+		account.removeTransaction(transactionToRemove);
 	}
 
 	@Override

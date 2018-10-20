@@ -16,17 +16,16 @@ public class AddTransactionCommand implements Command {
 	@Override
 	public void execute() {
 		account.addTransaction(transactionToAdd);
-
 	}
 
 	@Override
 	public void undo() {
-		
+		account.removeTransaction(transactionToAdd);
 	}
 
 	@Override
 	public void redo() {
-		// TODO Auto-generated method stub
+		account.addTransaction(transactionToAdd);
 
 	}
 
