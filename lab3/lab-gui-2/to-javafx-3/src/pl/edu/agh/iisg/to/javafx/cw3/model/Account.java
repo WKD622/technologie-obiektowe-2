@@ -1,7 +1,6 @@
 package pl.edu.agh.iisg.to.javafx.cw3.model;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -13,9 +12,9 @@ import javafx.collections.ObservableList;
 public class Account {
 
 	private StringProperty name;
-	
+
 	private ObjectProperty<BigDecimal> balance;
-	
+
 	private ObservableList<Transaction> transactions;
 
 	public Account(String name) {
@@ -27,15 +26,15 @@ public class Account {
 	public final String getName() {
 		return name.getValue();
 	}
-	
+
 	public final StringProperty getNameProperty() {
 		return name;
 	}
-	
+
 	public final BigDecimal getBalance() {
 		return balance.getValue();
 	}
-	
+
 	public final ObjectProperty<BigDecimal> getBalanceProperty() {
 		return balance;
 	}
@@ -43,7 +42,7 @@ public class Account {
 	public final ObservableList<Transaction> getTransactions() {
 		return transactions;
 	}
-	
+
 	public final void addTransaction(Transaction transaction) {
 		this.transactions.add(transaction);
 	}
@@ -51,5 +50,5 @@ public class Account {
 	public void removeTransaction(Transaction transaction) {
 		this.transactions.remove(transaction);
 	}
-	
+
 }

@@ -99,6 +99,7 @@ public class AccountOverviewController {
 		}
 	}
 
+
 	@FXML
 	private void handleEditAction(ActionEvent event) {
 		Transaction transaction = transactionsTable.getSelectionModel()
