@@ -20,7 +20,7 @@ public class Student {
 
 	private final int indexNumber;
 
-	private Student(final int id, final String firstName, final String lastName, final int indexNumber) {
+	public Student(final int id, final String firstName, final String lastName, final int indexNumber) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;

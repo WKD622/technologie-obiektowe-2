@@ -64,12 +64,26 @@ public class Course {
 	}
 
 	public List<Student> studentList() {
-		String findStudentListSql = String.format("");
-
-		List<Student> resultList = new LinkedList<>();
+		String findStudentListSql = String
+				.format("SELECT student_course.student_id, student.first_name, student.last_name, student.index_number FROM student_course INNER JOIN student ON student.id = student_course.student_id "
+						+ " WHERE student_course.course_id = %d", this.id());
+		List<Student> students = new LinkedList<>();
+		try {
+			ResultSet rs = QueryExecutor.read(findStudentListSql);
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				String firstName = rs.getString(2);
+				String lastName = rs.getString(3);
+				int indexNumber = rs.getInt(4);
+				students.add(new Student(id, firstName, lastName, indexNumber));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// TOTO implement
 
-		return resultList;
+		return students;
 	}
 
 	public List<Student> cachedStudentsList() {
