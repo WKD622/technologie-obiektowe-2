@@ -1,12 +1,12 @@
 package pl.edu.agh.iisg.to.executor;
 
-import pl.edu.agh.iisg.to.connection.ConnectionProvider;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
+
+import pl.edu.agh.iisg.to.connection.ConnectionProvider;
 
 public final class QueryExecutor {
 
@@ -76,7 +76,7 @@ public final class QueryExecutor {
         }
     }
 
-    public static ResultSet read(final String sql) throws SQLException {
+	public static ResultSet read(final String sql) throws SQLException {
         final Statement statement = ConnectionProvider.getConnection().createStatement();
         final ResultSet resultSet = statement.executeQuery(sql);
         LOGGER.info(String.format("Query: %s executed.", sql));

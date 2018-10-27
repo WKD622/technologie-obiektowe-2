@@ -11,97 +11,106 @@ import pl.edu.agh.iisg.to.executor.QueryExecutor;
 
 public class Course {
 
-    public static final String TABLE_NAME = "course";
-    
-    private static final Logger logger = Logger.getGlobal();
+	public static final String TABLE_NAME = "course";
 
-    private final int id;
+	private static final Logger logger = Logger.getGlobal();
 
-    private final String name;
-    
-    private List<Student> enrolledStudents;
-    
-    private boolean isStudentsListDownloaded = false;
+	private final int id;
 
-    private Course(final int id, final String name) {
-        this.id = id;
-        this.name = name;
-    }
+	private final String name;
 
-    public static Optional<Course> create(final String name) {
-    	String insertSql = String.format("INSERT INTO %s (name) VALUES ('%s');", TABLE_NAME, name);
+	private List<Student> enrolledStudents;
+
+	private boolean isStudentsListDownloaded = false;
+
+	private Course(final int id, final String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+	public static Optional<Course> create(final String name) {
+		String insertSql = String.format("INSERT INTO %s (name) VALUES ('%s');", TABLE_NAME, name);
 		try {
 			int id = QueryExecutor.createAndObtainId(insertSql);
-	        return Course.findById(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-        return Optional.empty();
-    }
-
-    public static Optional<Course> findById(final int id) {
-    	String findByIdSql = String.format("SELECT * FROM %s WHERE id = %d", TABLE_NAME, id);
-        
-    	try {
-			ResultSet rs = QueryExecutor.read(findByIdSql);
-	        return Optional.of(new Course(rs.getInt("id"), rs.getString("name")));
+			return Course.findById(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return Optional.empty();
-    }
+	}
 
-    public boolean enrollStudent(final Student student) {
-        String enrollStudentSql = String.format("");
-        //TODO implement
-        return false;
-    }
+	public static Optional<Course> findById(final int id) {
+		String findByIdSql = String.format("SELECT * FROM %s WHERE id = %d", TABLE_NAME, id);
 
-    public List<Student> studentList() {
-    	String findStudentListSql = String.format("");
-    	
-    	List<Student> resultList = new LinkedList<>();
-    	//TOTO implement
+		try {
+			ResultSet rs = QueryExecutor.read(findByIdSql);
+			return Optional.of(new Course(rs.getInt("id"), rs.getString("name")));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Optional.empty();
+	}
 
-    	return resultList;
-    }
-    
-    public List<Student> cachedStudentsList() {
-    	//TOTO implement
+	public boolean enrollStudent(final Student student) {
+		String enrollStudentSql = String.format("INSERT INTO %s (student_id, course_id) VALUES ('%d', '%d');",
+				"student_course", this.id, student.id(), this.id());
+		try {
+			QueryExecutor.createAndObtainId(enrollStudentSql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
+	public List<Student> studentList() {
+		String findStudentListSql = String.format("");
+
+		List<Student> resultList = new LinkedList<>();
+		// TOTO implement
+
+		return resultList;
+	}
+
+	public List<Student> cachedStudentsList() {
+		// TOTO implement
 		return enrolledStudents;
-    }
+	}
 
-    public int id() {
-        return id;
-    }
+	public int id() {
+		return id;
+	}
 
-    public String name() {
-        return name;
-    }
+	public String name() {
+		return name;
+	}
 
-    public static class Columns {
+	public static class Columns {
 
-        public static final String ID = "id";
+		public static final String ID = "id";
 
-        public static final String NAME = "name";
+		public static final String NAME = "name";
 
-    }
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-        Course course = (Course) o;
+		Course course = (Course) o;
 
-        if (id != course.id) return false;
-        return name.equals(course.name);
-    }
+		if (id != course.id)
+			return false;
+		return name.equals(course.name);
+	}
 
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        return result;
-    }
+	@Override
+	public int hashCode() {
+		int result = id;
+		result = 31 * result + name.hashCode();
+		return result;
+	}
 }

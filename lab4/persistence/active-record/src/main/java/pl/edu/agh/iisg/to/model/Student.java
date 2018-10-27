@@ -28,16 +28,36 @@ public class Student {
 	}
 
 	public static Optional<Student> create(final String firstName, final String lastName, final int indexNumber) {
-		String insertSql = String.format("INSERT INTO %s (first_name, #TODO) VALUES ('%s', #TODO);", TABLE_NAME, firstName); // TODO implement
-
-		// TODO implement
-
-		return Optional.empty();
+		String insertSql = String.format(
+				"INSERT INTO %s (first_name, last_name, index_number) VALUES ('%s', '%s', '%d');", TABLE_NAME,
+				firstName, lastName, indexNumber); // TODO implement
+		int id = 0;
+		try {
+			id = QueryExecutor.createAndObtainId(insertSql);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Student.findById(id);
 	}
 
 	public static Optional<Student> findByIndexNumber(final int indexNumber) {
-		String findByIndexNumberSql = String.format("");
-
+		String findByIndexNumberSql = String.format("SELECT * FROM student WHERE index_number = %d", indexNumber);
+		Student student;
+		try {
+			ResultSet rs = QueryExecutor.read(findByIndexNumberSql);
+			rs.next();
+			int newId = rs.getInt(1);
+			String newFirstName = rs.getString(2);
+			String newLastName = rs.getString(3);
+			int newIndexNumber1 = rs.getInt(4);
+			student = new Student(newId, newFirstName, newLastName, newIndexNumber1);
+			return Optional.of(student);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// TODO implement
 		return Optional.empty();
 	}
@@ -46,12 +66,13 @@ public class Student {
 		// TODO additional task
 		return Collections.emptyMap();
 	}
-	
+
 	public static Optional<Student> findById(final int id) {
 		String findByIdSql = String.format("SELECT * FROM student WHERE id = %d", id);
 		try {
 			ResultSet rs = QueryExecutor.read(findByIdSql);
-	        return Optional.of(new Student(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getInt("index_number")));
+			return Optional.of(new Student(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"),
+					rs.getInt("index_number")));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

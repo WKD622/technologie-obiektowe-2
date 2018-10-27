@@ -38,7 +38,7 @@ public class ActiveRecordTest {
     }
 
     @Test
-    public void createStudentTest() {
+	public void createStudentTest() {
         Optional<Student> first = Student.create("Adam", "Kowalski", 100122);
         checkStudent(first);
         Optional<Student> second = Student.create("Jan", "Nowak", 100123);

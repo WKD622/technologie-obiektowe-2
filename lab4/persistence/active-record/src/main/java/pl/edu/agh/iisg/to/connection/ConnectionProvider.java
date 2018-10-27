@@ -25,7 +25,7 @@ public final class ConnectionProvider {
             close();
             logger.info("Loading driver");
             Class.forName(JDBC_DRIVER);
-            connection = Optional.of(DriverManager.getConnection(jdbcAddress));
+			connection = Optional.of(DriverManager.getConnection(jdbcAddress));
             logger.info("Connection created");
         } catch (Exception e) {
             logger.info("Error during initialization: " + e.getMessage());
